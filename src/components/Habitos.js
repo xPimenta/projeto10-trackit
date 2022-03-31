@@ -41,7 +41,7 @@ width: 100vw;
   display: flex;
   flex-direction: column;
   margin-top: 20px;
-  margin-left: 20px;
+  margin-left: 17px;
   margin-right: 20px;
   margin-bottom: 20px;
   width: 100%;
@@ -51,10 +51,34 @@ width: 100vw;
 .habitos-title{
   display: flex;
   flex-direction: row;
+  position: relative;
+  align-items: center;
   height: 34px;
+
+  h1{
+    margin: 10px;
+    font-family: 'Lexend Deca';
+font-style: normal;
+font-weight: 400;
+font-size: 22.976px;
+line-height: 29px;
+
+
+color: #126BA5;
+  }
+
+  button{
+    color: #E5E5E5;
+    position: absolute;
+    right: 65px;
+    background: #52B6FF;
+border-radius: 4.7px;
+border:none;
+height:28px;
+width:32px;
+
+}
 }
 
-.habitos-title h1{
-  margin: 10px;
-}
+
 `;

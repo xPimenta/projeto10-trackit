@@ -9,6 +9,7 @@ export default function Header() {
       </Headers>
   );
 }
+
 const Headers = styledComponents.div`
     height: 70px;
   background: #126BA5;
@@ -19,6 +20,7 @@ const Headers = styledComponents.div`
     margin: 17px;
     margin-left: 18px;
   }
+  
   .profPic{
     width: 51px;
     height: 51px;
