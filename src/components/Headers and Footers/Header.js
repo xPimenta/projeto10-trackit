@@ -4,6 +4,7 @@ import logo2 from '../../assets/logo2.png';
 export default function Header() {
   return (
       <Headers>
+        <img src={logo2} alt="lulç" />
         <img className="profPic" src={logo2} alt="lulç" />
       </Headers>
   );
