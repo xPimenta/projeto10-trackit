@@ -1,14 +1,22 @@
 import styled from 'styled-components';
 import Header from './Headers and Footers/Header';
 import Footer from './Headers and Footers/Footer';
-import trash from './../assets/trash.png';
+import { useState } from 'react';
 
-export default function Habitos() {
+
+// import Habito from './Habito';
+
+export default function Habitos({token}) {
+
+  // const [habitos, setHabitos] = useState([]);
+  // const [habitName, setHabitName] = useState("");
+  const [habitDays, setHabitDays] = useState(new Map());
+  // const navigate = useNavigate();
+console.log(habitDays);
   return (
     <>
       <Header />
       <Container>
-
 
         <div className="habitos">
           <div className="habitos-item">
@@ -18,41 +26,12 @@ export default function Habitos() {
             </div>
 
             <div className="center-habits">
-              <div className="create-habito">
-                <input type="text" placeholder="Nome do hábito" />
-                <div className="habito-days">
-                  <button>D</button>
-                  <button>D</button>
-                  <button>D</button>
-                  <button>D</button>
-                  <button>D</button>
-                  <button>D</button>
-                  <button>D</button>
-                </div>
-                <div className="cancel-save">
-                  <button className="save">Salvar</button>
-                  <button className="cancel">Cancelar</button>
-
-                </div>
+              <CreateHabit/>
               </div>
 
-              <div className='my-habits'>
-                <div className="box-habito">
-                  <div className="habito-title-days">
-                    <h2>Hábito 1</h2>
-                    <div className="habito-days">
-                      <button>D</button>
-                      <button>D</button>
-                      <button>D</button>
-                      <button>D</button>
-                      <button>D</button>
-                      <button>D</button>
-                      <button>D</button>
-                    </div>
-                  </div>
-                  <img src={trash} alt="delete" />
-                </div>
-              </div>
+              {/* <div className='my-habits'>
+                <Habito />
+              </div> */}
             </div>
 
 
@@ -61,12 +40,51 @@ export default function Habitos() {
                 Adicione um hábito para começar a trackear!</h2>
             </div>
           </div>
-
-        </div>
       </Container>
       <Footer />
     </>
   );
+
+  function selectDay(){
+    
+  }
+
+  function toggle(index, day){
+    const selectedDays = habitDays.has(index);
+
+    if(selectedDays){
+      habitDays.delete(index);
+      setHabitDays(new Map(habitDays));
+    } else {
+      setHabitDays(new Map(habitDays.set(index, day)));
+    }
+  }
+
+  function CreateHabit() {
+  const daysOfWeek = ["D", "S", "T", "Q", "Q", "S", "S"];
+
+    const ButtonsDaysOfWeek = daysOfWeek.map((day, index) => {
+      return (
+        <button key={index} className="day-button" onClick={() => toggle(index, day)}>{day}</button>
+      )}
+    );
+
+    return (
+      <div className="create-habito">
+        <input type="text" placeholder="Nome do hábito" />
+        <div className="habito-days">
+          {ButtonsDaysOfWeek}
+        </div>
+        <div className="cancel-save">
+          <button className="save">Salvar</button>
+          <button className="cancel">Cancelar</button>
+
+        </div>
+      </div>
+    );
+  }
+
+
 }
 
 const Container = styled.div`
@@ -118,10 +136,11 @@ color: #666666;
 .cancel-save{
   display: flex;
   flex-direction: row-reverse;
+  
   margin-top: 20px;
 
   button{
-    width: 84px;
+    min-width: 84px;
 height: 35px;
 
 background: #52B6FF;

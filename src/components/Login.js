@@ -5,7 +5,7 @@ import axios from 'axios';
 import logo from "./../assets/logo.png"
 
 
-export default function Login() {
+export default function Login({salvarToken}) {
 
   let navigate = useNavigate();
 
@@ -18,6 +18,7 @@ export default function Login() {
   promise.then(response => {
     const { data } = response;
     console.log(data);
+    salvarToken(data.token);
     navigate("habitos");
   });
   promise.catch(error => {console.log("Erro: ", error.detais, error.message)});
