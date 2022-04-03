@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Header from './Headers and Footers/Header';
 import Footer from './Headers and Footers/Footer';
+import trash from './../assets/trash.png';
 
 export default function Habitos() {
   return (
@@ -34,6 +35,24 @@ export default function Habitos() {
 
                 </div>
               </div>
+
+              <div className='my-habits'>
+                <div className="box-habito">
+                  <div className="habito-title-days">
+                    <h2>Hábito 1</h2>
+                    <div className="habito-days">
+                      <button>D</button>
+                      <button>D</button>
+                      <button>D</button>
+                      <button>D</button>
+                      <button>D</button>
+                      <button>D</button>
+                      <button>D</button>
+                    </div>
+                  </div>
+                  <img src={trash} alt="delete" />
+                </div>
+              </div>
             </div>
 
 
@@ -42,6 +61,7 @@ export default function Habitos() {
                 Adicione um hábito para começar a trackear!</h2>
             </div>
           </div>
+
         </div>
       </Container>
       <Footer />
@@ -58,10 +78,47 @@ background: #E5E5E5;
 height: calc(100vh - 84px);
 width: 100vw;
 
+.habito-title-days{
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  padding-right: 18px;
+  width: 340px;
+  height: 180px;
+  background: #FFFFFF;
+border-radius: 5px;
+  margin-top: 22px;
+  margin-right: 40px;
+
+  button{
+    background: #FFFFFF;
+border: 1px solid #D5D5D5;
+box-sizing: border-box;
+border-radius: 5px;
+color: grey;
+margin: 2px;
+margin-top: 8px;
+width: 30px;
+height: 30px;
+}
+
+  h2{
+    font-family: 'Lexend Deca';
+font-style: normal;
+font-weight: 400;
+font-size: 19.976px;
+line-height: 25px;
+/* identical to box height */
+
+color: #666666;
+
+  }
+}
+
 .cancel-save{
   display: flex;
   flex-direction: row-reverse;
-  margin-top: 32px;
+  margin-top: 20px;
 
   button{
     width: 84px;
@@ -128,6 +185,8 @@ border-radius: 5px;
 color: grey;
 margin: 2px;
 margin-top: 8px;
+width: 30px;
+height: 30px;
 }
 }
 

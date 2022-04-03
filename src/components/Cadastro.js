@@ -1,24 +1,43 @@
 import styled from 'styled-components';
 import {Link, useNavigate} from "react-router-dom";
+import {useState} from "react";
 import logo from "./../assets/logo.png"
+import axios from 'axios';
 
 export default function Cadastro() {
 
-  let navigate = useNavigate(); 
-  const routeChange = () =>{ 
-    let path = `/`; 
-    navigate(path);
+  const navigate = useNavigate(); 
+
+  function cadastrar() { 
+    const URL ="https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
+    const promise = axios.post(URL,{
+        email: email,
+        name: nome,
+        image: foto,
+        password: senha
+    });
+
+    promise.then(response =>{
+      const {data} = response;
+      console.log(data);
+      navigate("/");
+    });
+    promise.catch(error =>{console.log("Erro: ", error.detais, error.message)});
   }
 
-    
+  const[email, setEmail] = useState("");
+  const[senha, setSenha] = useState("");
+  const[nome, setNome] = useState("");
+  const[foto, setFoto] = useState("");
+
   return (
     <Container>
       <img src={logo} alt="lulç"/>
-      <input placeholder='email'></input>
-      <input placeholder='senha'></input>
-      <input placeholder='nome'></input>
-      <input placeholder='foto'></input>
-      <button onClick={routeChange}>Cadastrar</button>
+      <input type="text" placeholder='email' value={email} onChange={(e) => setEmail(e.target.value)}></input>
+      <input type="text" placeholder='senha' value={senha} onChange={(e) => setSenha(e.target.value)}></input>
+      <input type="text" placeholder='nome' value={nome} onChange={(e) => setNome(e.target.value)}></input>
+      <input type="text" placeholder='foto' value={foto} onChange={(e) => setFoto(e.target.value)}></input>
+      <button onClick={cadastrar}>Cadastrar</button>
         <Link className="redirectLink" to="/">Já tem uma conta? Faça login!</Link>
     </Container>
   );

@@ -1,24 +1,38 @@
 import styled from 'styled-components';
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from 'axios';
 import logo from "./../assets/logo.png"
 
 
 export default function Login() {
 
-  let navigate = useNavigate(); 
+  let navigate = useNavigate();
 
-    const routeChange = () =>{ 
-        let path = `/habitos`; 
-        navigate(path);
-      }
-    
+  function login() {
+    const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login";
+    const promise = axios.post(URL, {
+      email,
+      password: senha
+  });
+  promise.then(response => {
+    const { data } = response;
+    console.log(data);
+    navigate("habitos");
+  });
+  promise.catch(error => {console.log("Erro: ", error.detais, error.message)});
+  }
+
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+
   return (
     <Container>
-      <img src={logo} alt="lulç"/>
-      <input placeholder='email'></input>
-      <input placeholder='senha'></input>
-      <button onClick={routeChange} >Entrar</button>
-        <Link className="redirectLink" to="/cadastro">Não tem uma conta? Cadastre-se</Link>
+      <img src={logo} alt="logo" />
+      <input type="text" placeholder='email' value={email} onChange={(e) => setEmail(e.target.value)}></input>
+      <input type="text" placeholder='senha' value={senha} onChange={(e) => setSenha(e.target.value)}></input>
+      <button onClick={login} >Entrar</button>
+      <Link className="redirectLink" to="/cadastro">Não tem uma conta? Cadastre-se</Link>
     </Container>
   );
 }
