@@ -1,12 +1,14 @@
 import styledComponents from "styled-components";
 import logo2 from '../../assets/logo.png';
+import { Link } from "react-router-dom";
 
 export default function Footer() {
+  // let navigate = useNavigate();
   return (
       <Footers>
         <div className="footer">
-        <h1>Hábitos</h1>
-        <h1>Histórico</h1>
+        <Link className="redirectLink" to="/cadastro">Hábitos</Link>
+        <Link className="redirectLink" to="/cadastro">Histórico</Link>
         </div>
 
 
@@ -20,7 +22,6 @@ export default function Footer() {
 
 const Footers = styledComponents.div`
 height: 101px;   
-// background: #126BA5; 
   position: absolute;
   bottom: 0;
     width: 100%;
@@ -38,12 +39,13 @@ height: 101px;
   background: #FFF;
     display: flex;
     
-    h1{
-      margin: 10px;
+    .redirectLink{
+      text-decoration: none;
+      margin: 20px;
       font-family: 'Lexend Deca';
   font-style: normal;
   font-weight: 400;
-  font-size: 17.976px;
+  font-size: 21px;
   line-height: 22px;
   text-align: center;
   color: #52B6FF;
