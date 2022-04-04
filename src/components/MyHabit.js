@@ -10,8 +10,6 @@ export default function MyHabit({
 	habitData: { name, days, id }, comp
 }) {
 
-  console.log(comp);
-
   const {token} = useContext(UserContext);
 
 	const daysList = [

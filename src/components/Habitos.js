@@ -16,7 +16,6 @@ export default function Habitos() {
   const [habitDays, setHabitDays] = useState([]);
 
   const [createOpen, setCreateOpen] = useState(false);
-  console.log(habit, habitDays);
 
   function createHabit(e) {
     e.preventDefault();
@@ -49,6 +48,7 @@ export default function Habitos() {
   }
 
   useEffect(() => {
+    
     axios
       .get(
         "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
@@ -86,7 +86,7 @@ export default function Habitos() {
             </div>
 
             <div className="center-habits">
-              {createOpen == true ? (
+              {createOpen === true ? (
                 <CreateHabitForm onSubmit={createHabit}>
                   <input
                     type="text"
@@ -109,7 +109,7 @@ export default function Habitos() {
                     (id) => {
                       console.log(id);
                       setHabitos(
-                        habitos.filter((habit) => habit.id !== habit.id)
+                        habitos.filter((habit) => habit.id !== id)
                       );
                     }
                   }

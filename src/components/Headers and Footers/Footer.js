@@ -15,13 +15,11 @@ export default function Footer() {
         <Link className="redirectLink" to="/historico">Histórico</Link>
         </div>
 
-
-        <div className="hojePercent">
+        <Link to="/hoje" className="hojePercent">
         <div className="percent">
         <CircularProgressbar styles={buildStyles({ textColor: '#fff',})} value={50} text="Hoje" />;
         </div>
-        </div>
-    
+        </Link>
       </Footers>
   );
 }
