@@ -1,23 +1,22 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState, useEffect , useContext} from "react";
 import axios from "axios";
 
 import Header from "./Headers and Footers/Header";
 import Footer from "./Headers and Footers/Footer";
 import MyHabit from "./MyHabit";
+import UserContext from "./contexts/UserContext";
 
-// import Habito from './Habito';
+export default function Habitos() {
+  const {token} = useContext(UserContext);
+  console.log(token);
 
-export default function Habitos({ token }) {
   const [habitos, setHabitos] = useState([]);
-  // const [habitName, setHabitName] = useState("");
   const [habit, setHabit] = useState("");
   const [habitDays, setHabitDays] = useState([]);
 
   const [createOpen, setCreateOpen] = useState(false);
-  // let [color, setColor] = useState("#ffffff");
-  // const navigate = useNavigate();
-  console.log(habit,habitDays);
+  console.log(habit, habitDays);
 
   function createHabit(e) {
     e.preventDefault();
@@ -41,6 +40,7 @@ export default function Habitos({ token }) {
           console.log(data);
           setHabit("");
           setHabitDays([]);
+          setHabitos([...habitos, data]);
         })
         .catch(({ response }) => {
           console.log(response);
@@ -105,6 +105,14 @@ export default function Habitos({ token }) {
               {habitos.map((habit) => (
                 <MyHabit
                   habitData={habit}
+                  comp={
+                    (id) => {
+                      console.log(id);
+                      setHabitos(
+                        habitos.filter((habit) => habit.id !== habit.id)
+                      );
+                    }
+                  }
                   // deleteHabit={deleteHabit}
                   key={habit.id}
                 />
@@ -117,15 +125,14 @@ export default function Habitos({ token }) {
           </div>
 
           {habitos.length === 0 ? (
-          <div className="semHabito">
-            <h2>
-              Você não tem nenhum hábito cadastrado ainda. Adicione um hábito
-              para começar a trackear!
-            </h2>
-          </div> ) : (
             <div className="semHabito">
-            
-          </div>
+              <h2>
+                Você não tem nenhum hábito cadastrado ainda. Adicione um hábito
+                para começar a trackear!
+              </h2>
+            </div>
+          ) : (
+            <div className="semHabito"></div>
           )}
         </div>
       </Container>
@@ -165,7 +172,9 @@ export default function Habitos({ token }) {
           <button type="submit" className="save">
             Salvar
           </button>
-          <button onClick={() => setCreateOpen(!createOpen)} className="cancel">Cancelar</button>
+          <button onClick={() => setCreateOpen(!createOpen)} className="cancel">
+            Cancelar
+          </button>
         </div>
       </CreateHab>
     );

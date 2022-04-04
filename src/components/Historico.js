@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Header from "./Headers and Footers/Header";
 import Footer from "./Headers and Footers/Footer";
 
-export default function Historico({ token }) {
+export default function Historico() {
   return (
     <Main>
       <div className="header">

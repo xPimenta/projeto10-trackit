@@ -1,11 +1,15 @@
 import styledComponents from "styled-components";
 import logo2 from '../../assets/logo2.png';
+import { useContext } from "react";
+import UserImg from "../contexts/UserImg";
 
 export default function Header() {
+
+  const { img } = useContext(UserImg);
   return (
       <Headers>
         <img src={logo2} alt="lulç" />
-        <img className="profPic" src={logo2} alt="lulç" />
+        <img className="profPic" src={img} alt="" />
       </Headers>
   );
 }

@@ -1,10 +1,19 @@
-// import { ReactComponent as DeleteHabitButton } from "../../assets/imgs/delete.svg"
+import { ReactComponent as DeleteHabitButton } from "../assets/trash.svg";
+import axios from "axios";
+import { useContext } from "react";
+
+import UserContext from "./contexts/UserContext";
 
 import styled from "styled-components"
 
 export default function MyHabit({
-	habitData: { name, days, id },
+	habitData: { name, days, id }, comp
 }) {
+
+  console.log(comp);
+
+  const {token} = useContext(UserContext);
+
 	const daysList = [
 		{ dayName: "D", dayIndex: 0 },
 		{ dayName: "S", dayIndex: 1 },
@@ -30,8 +39,28 @@ export default function MyHabit({
 					)
 				})}
 			</div>
-			<button>
-				{/* <DeleteHabitButton /> */}
+			<button onClick={()=>{
+        console.log(id)
+        if(window.confirm("Deseja excluir o hábito?")){
+        axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+        )
+        .then(({data})=>{
+          console.log("msg then");
+          comp(id);
+        } 
+        )
+        .catch(({response})=>{
+          console.log("response catch")
+        }
+        )
+      } 
+      }}>
+				<DeleteHabitButton />
 			</button>
 		</MyHabito>
 	)
@@ -77,9 +106,12 @@ margin-right: 40px;
 		}
 	}
 	button {
-		position: absolute;
-		top: 11px;
-		right: 10px;
-		background: transparent;
+    position: relative;
+    right: -290px;
+    top: -65px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: none;
 	}
 `;

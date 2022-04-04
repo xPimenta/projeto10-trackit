@@ -1,11 +1,16 @@
 import styled from 'styled-components';
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from 'axios';
 import logo from "./../assets/logo.png"
 
+import UserContext from './contexts/UserContext';
+import UserImg from './contexts/UserImg';
 
-export default function Login({salvarToken}) {
+export default function Login() {
+
+  const token = useContext(UserContext);
+  const img = useContext(UserImg);
 
   let navigate = useNavigate();
 
@@ -18,7 +23,8 @@ export default function Login({salvarToken}) {
   promise.then(response => {
     const { data } = response;
     console.log(data);
-    salvarToken(data.token);
+    token.setToken(data.token);
+    img.setImg(data.image);
     navigate("habitos");
   });
   promise.catch(()=>{alert("Usuário ou senha incorretos")});
