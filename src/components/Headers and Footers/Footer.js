@@ -2,11 +2,14 @@ import styledComponents from "styled-components";
 import { Link } from "react-router-dom";
 import { CircularProgressbar , buildStyles} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { useContext } from "react";
+import CheckedHabitsValue from "../contexts/CheckedHabitsValue";
 
 
 
 export default function Footer() {
   // let navigate = useNavigate();
+  const { checkedHabitsValue } = useContext(CheckedHabitsValue);
 
   return (
       <Footers>
@@ -17,14 +20,12 @@ export default function Footer() {
 
         <Link to="/hoje" className="hojePercent">
         <div className="percent">
-        <CircularProgressbar styles={buildStyles({ textColor: '#fff',})} value={50} text="Hoje" />;
+        <CircularProgressbar styles={buildStyles({ textColor: '#fff',})} value={checkedHabitsValue * 100} text="Hoje" />;
         </div>
         </Link>
       </Footers>
   );
 }
-
-// const CircularProgressbar = styledComponents(CircularProgressbar);
 
 
 const Footers = styledComponents.div`
