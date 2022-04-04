@@ -1,9 +1,13 @@
 import styledComponents from "styled-components";
-import logo2 from '../../assets/logo.png';
 import { Link } from "react-router-dom";
+import { CircularProgressbar , buildStyles} from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+
+
 
 export default function Footer() {
   // let navigate = useNavigate();
+
   return (
       <Footers>
         <div className="footer">
@@ -13,12 +17,17 @@ export default function Footer() {
 
 
         <div className="hojePercent">
-        <img className="profPic" src={logo2} alt="lulç" />
+        <div className="percent">
+        <CircularProgressbar styles={buildStyles({ textColor: '#fff',})} value={50} text="Hoje" />;
+        </div>
         </div>
     
       </Footers>
   );
 }
+
+// const CircularProgressbar = styledComponents(CircularProgressbar);
+
 
 const Footers = styledComponents.div`
 height: 101px;   
@@ -56,8 +65,10 @@ height: 101px;
     }
   }
   }
-  img{
-    background: red;
+  .percent{
+    textcolor: white;
+    padding: 6px;
+    background: #52B6FF;
     position: relative;
     width: 91px;
     height: 91px;
