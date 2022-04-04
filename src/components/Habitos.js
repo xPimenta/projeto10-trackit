@@ -13,6 +13,8 @@ export default function Habitos({ token }) {
   // const [habitName, setHabitName] = useState("");
   const [habit, setHabit] = useState("");
   const [habitDays, setHabitDays] = useState([]);
+
+  const [createOpen, setCreateOpen] = useState(false);
   // let [color, setColor] = useState("#ffffff");
   // const navigate = useNavigate();
   console.log(habitDays);
@@ -68,29 +70,38 @@ export default function Habitos({ token }) {
 
   return (
     <Main>
-    <div className="header">
-      <Header />
+      <div className="header">
+        <Header />
       </div>
       <Container>
         <div className="habitos">
           <div className="habitos-item">
             <div className="habitos-title">
               <h1>Meus hábitos</h1>
-              <button className="addHabit">+</button>
+              <button
+                onClick={() => setCreateOpen(!createOpen)}
+                className="addHabit"
+              >
+                +
+              </button>
             </div>
 
             <div className="center-habits">
-              <CreateHabitForm onSubmit={createHabit}>
-                <input
-                  type="text"
-                  value={habit}
-                  onChange={(e) => {
-                    setHabit(e.target.value);
-                  }}
-                  placeholder="Nome do hábito"
-                />
-                <CreateHabit />
-              </CreateHabitForm>
+              {createOpen == true ? (
+                <CreateHabitForm onSubmit={createHabit}>
+                  <input
+                    type="text"
+                    value={habit}
+                    onChange={(e) => {
+                      setHabit(e.target.value);
+                    }}
+                    placeholder="Nome do hábito"
+                  />
+                  <CreateHabit />
+                </CreateHabitForm>
+              ) : (
+                ""
+              )}
 
               {habitos.map((habit) => (
                 <MyHabit
@@ -115,7 +126,7 @@ export default function Habitos({ token }) {
         </div>
       </Container>
       <div className="footer">
-      <Footer />
+        <Footer />
       </div>
     </Main>
   );
@@ -150,37 +161,37 @@ export default function Habitos({ token }) {
           <button type="submit" className="save">
             Salvar
           </button>
-          <button className="cancel">Cancelar</button>
+          <button onClick={() => setCreateOpen(!createOpen)} className="cancel">Cancelar</button>
         </div>
       </CreateHab>
     );
   }
 }
 const Main = styled.div`
-.header{
-position: fixed;
-z-index: 3;
-height: 70px;
-  background: #126BA5;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+  .header {
+    position: fixed;
+    z-index: 3;
+    height: 70px;
+    background: #126ba5;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
     width: 100%;
-  display: flex;
-  img{
-    margin: 17px;
-    margin-left: 18px;
-}
-}
-.footer{
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
+    display: flex;
+    img {
+      margin: 17px;
+      margin-left: 18px;
+    }
+  }
+  .footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
 `;
 
 const CreateHab = styled.div`
-font-family: "Lexend Deca";
-	font-style: normal;
-	font-weight: 400;
+  font-family: "Lexend Deca";
+  font-style: normal;
+  font-weight: 400;
 
   .habito-days {
     display: flex;
@@ -196,13 +207,12 @@ font-family: "Lexend Deca";
       width: 30px;
       height: 30px;
       font-size: 19.976px;
-		line-height: 25px;
-		color: #dbdbdb;
-    
+      line-height: 25px;
+      color: #dbdbdb;
     }
     .day-selected {
       color: #fff;
-			background: #cfcfcf;
+      background: #cfcfcf;
       border: 1px solid #d5d5d5;
       box-sizing: border-box;
       border-radius: 5px;
