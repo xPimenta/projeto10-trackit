@@ -24,8 +24,8 @@ export default function Login({salvarToken}) {
   promise.catch(error => {console.log("Erro: ", error.detais, error.message)});
   }
 
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
+  const [email, setEmail] = useState("mateuspimartins@hotmail.com");
+  const [senha, setSenha] = useState("123456");
 
   return (
     <Container>

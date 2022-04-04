@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState , useEffect} from "react";
+import axios from "axios";
 
 import Header from "./Headers and Footers/Header";
 import Footer from "./Headers and Footers/Footer";
@@ -7,7 +8,7 @@ import Footer from "./Headers and Footers/Footer";
 // import Habito from './Habito';
 
 export default function Habitos({ token }) {
-  // const [habitos, setHabitos] = useState([]);
+  const [habitos, setHabitos] = useState([]);
   // const [habitName, setHabitName] = useState("");
   const [habit, setHabit] = useState("");
   const [habitDays, setHabitDays] = useState([]);
@@ -15,6 +16,57 @@ export default function Habitos({ token }) {
   // const navigate = useNavigate();
   console.log(habitDays);
   console.log(habit);
+
+  function createHabit(e) {
+    e.preventDefault();
+    console.log(habit, habitDays);
+    if (habitDays.length === 0) {
+    } else {
+      axios
+        .post(
+          "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
+          {
+            name: habit,
+            days: habitDays,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then(({ data }) => {
+          console.log(data);
+          setHabit("");
+          setHabitDays([]);
+
+          setHabit([...habit, data]);
+        })
+        .catch(({ response }) => {
+          console.log(response);
+        });
+    }
+  }
+
+  useEffect(() => {
+		axios
+			.get(
+				"https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			)
+			.then(({ data }) => {
+				console.log(data)
+				setHabitos(data)
+			})
+			.catch(({ response }) => {
+				console.log(response)
+			})
+	}, [])
+
   return (
     <>
       <Header />
@@ -27,17 +79,17 @@ export default function Habitos({ token }) {
             </div>
 
             <div className="center-habits">
-              <div className="create-habit-box">
-              <input
-                type="text"
-                value={habit}
-                onChange={(e) => {
-                  setHabit(e.target.value);
-                }}
-                placeholder="Nome do hábito"
-              />
-              <CreateHabit />
-              </div>
+              <CreateHabitForm onSubmit={createHabit}>
+                <input
+                  type="text"
+                  value={habit}
+                  onChange={(e) => {
+                    setHabit(e.target.value);
+                  }}
+                  placeholder="Nome do hábito"
+                />
+                <CreateHabit />
+              </CreateHabitForm>
             </div>
 
             {/* <div className='my-habits'>
@@ -84,7 +136,9 @@ export default function Habitos({ token }) {
       <CreateHab>
         <div className="habito-days">{ButtonsDaysOfWeek}</div>
         <div className="cancel-save">
-          <button className="save">Salvar</button>
+          <button type="submit" className="save">
+            Salvar
+          </button>
           <button className="cancel">Cancelar</button>
         </div>
       </CreateHab>
@@ -92,8 +146,9 @@ export default function Habitos({ token }) {
   }
 }
 
-const CreateHab = styled.div`
 
+
+const CreateHab = styled.div`
   .habito-days {
     display: flex;
     flex-direction: row;
@@ -121,25 +176,7 @@ const CreateHab = styled.div`
       height: 30px;
     }
   }
-  input {
-    height: 45px;
-    left: 36px;
-    top: 165px;
-    padding-left: 11px;
 
-    background: #ffffff;
-    border: 1px solid #d5d5d5;
-    box-sizing: border-box;
-    border-radius: 5px;
-
-    font-family: "Lexend Deca";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 19.976px;
-    line-height: 25px;
-
-    color: #dbdbdb;
-  }
   .cancel-save {
     display: flex;
     flex-direction: row-reverse;
@@ -162,17 +199,8 @@ const CreateHab = styled.div`
   }
 `;
 
-const Container = styled.div`
-  border-bottom: 1px solid #ddd;
+const CreateHabitForm = styled.form`
   display: flex;
-  position: relative;
-  flex-direction: column;
-  background: #e5e5e5;
-  height: calc(100vh - 84px);
-  width: 100vw;
-
-  .create-habit-box {
-    display: flex;
   flex-direction: column;
   padding: 15px;
   padding-right: 18px;
@@ -182,7 +210,36 @@ const Container = styled.div`
   border-radius: 5px;
   margin-top: 22px;
   margin-right: 40px;
+
+  input {
+    height: 45px;
+    left: 36px;
+    top: 165px;
+    padding-left: 11px;
+
+    background: #ffffff;
+    border: 1px solid #d5d5d5;
+    box-sizing: border-box;
+    border-radius: 5px;
+
+    font-family: "Lexend Deca";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 19.976px;
+    line-height: 25px;
+
+    color: #dbdbdb;
   }
+`;
+
+const Container = styled.div`
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  background: #e5e5e5;
+  height: calc(100vh - 84px);
+  width: 100vw;
 
   .center-habits {
     display: flex;
