@@ -17,8 +17,7 @@ export default function Habitos({ token }) {
   const [createOpen, setCreateOpen] = useState(false);
   // let [color, setColor] = useState("#ffffff");
   // const navigate = useNavigate();
-  console.log(habitDays);
-  console.log(habit);
+  console.log(habit,habitDays);
 
   function createHabit(e) {
     e.preventDefault();
