@@ -7,8 +7,8 @@ export default function Footer() {
   return (
       <Footers>
         <div className="footer">
-        <Link className="redirectLink" to="/cadastro">Hábitos</Link>
-        <Link className="redirectLink" to="/cadastro">Histórico</Link>
+        <Link className="redirectLink" to="/habitos">Hábitos</Link>
+        <Link className="redirectLink" to="/historico">Histórico</Link>
         </div>
 
 
