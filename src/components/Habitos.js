@@ -116,12 +116,17 @@ export default function Habitos({ token }) {
               </div> */}
           </div>
 
+          {habitos.length === 0 ? (
           <div className="semHabito">
             <h2>
               Você não tem nenhum hábito cadastrado ainda. Adicione um hábito
               para começar a trackear!
             </h2>
+          </div> ) : (
+            <div className="semHabito">
+            
           </div>
+          )}
         </div>
       </Container>
       <div className="footer">
@@ -344,6 +349,7 @@ const Container = styled.div`
     margin: 13px;
     margin-top: 30px;
     margin-right: 30px;
+    margin-bottom: 80vh;
 
     h2 {
       font-family: "Lexend Deca";
