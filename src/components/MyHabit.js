@@ -39,6 +39,10 @@ export default function MyHabit({
 
 
 const MyHabito = styled.div`
+font-family: "Lexend Deca";
+	font-style: normal;
+	font-weight: 400;
+  font-size: 21px;
 margin-top: 10px;
 margin-right: 40px;
 	width: 340px;
@@ -49,7 +53,7 @@ margin-right: 40px;
 	border-radius: 5px;
 	padding: 13px 15px;
 	h1 {
-		font-size: 19.976px;
+		font-size: 21px;
 		line-height: 25px;
 		color: #666666;
 	}

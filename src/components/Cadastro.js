@@ -22,7 +22,7 @@ export default function Cadastro() {
       console.log(data);
       navigate("/");
     });
-    promise.catch(error =>{console.log("Erro: ", error.detais, error.message)});
+    promise.catch(()=>{alert("Ocorreu algum erro, tente novamente")});
   }
 
   const[email, setEmail] = useState("");

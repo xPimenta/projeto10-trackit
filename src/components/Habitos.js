@@ -40,8 +40,6 @@ export default function Habitos({ token }) {
           console.log(data);
           setHabit("");
           setHabitDays([]);
-
-          setHabit([...habit, data]);
         })
         .catch(({ response }) => {
           console.log(response);
@@ -69,8 +67,10 @@ export default function Habitos({ token }) {
   }, []);
 
   return (
-    <>
+    <Main>
+    <div className="header">
       <Header />
+      </div>
       <Container>
         <div className="habitos">
           <div className="habitos-item">
@@ -114,8 +114,10 @@ export default function Habitos({ token }) {
           </div>
         </div>
       </Container>
+      <div className="footer">
       <Footer />
-    </>
+      </div>
+    </Main>
   );
 
   function CreateHabit() {
@@ -154,8 +156,32 @@ export default function Habitos({ token }) {
     );
   }
 }
+const Main = styled.div`
+.header{
+position: fixed;
+z-index: 3;
+height: 70px;
+  background: #126BA5;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    width: 100%;
+  display: flex;
+  img{
+    margin: 17px;
+    margin-left: 18px;
+}
+}
+.footer{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+`;
 
 const CreateHab = styled.div`
+font-family: "Lexend Deca";
+	font-style: normal;
+	font-weight: 400;
+
   .habito-days {
     display: flex;
     flex-direction: row;
@@ -248,7 +274,7 @@ const Container = styled.div`
   position: relative;
   flex-direction: column;
   background: #e5e5e5;
-  height: calc(100vh - 84px);
+  height: 100%;
   width: 100vw;
 
   .center-habits {
@@ -259,6 +285,7 @@ const Container = styled.div`
   }
 
   .habitos {
+    margin-top: 70px;
     display: flex;
     flex-direction: column;
   }

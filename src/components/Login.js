@@ -21,7 +21,7 @@ export default function Login({salvarToken}) {
     salvarToken(data.token);
     navigate("habitos");
   });
-  promise.catch(error => {console.log("Erro: ", error.detais, error.message)});
+  promise.catch(()=>{alert("Usuário ou senha incorretos")});
   }
 
   const [email, setEmail] = useState("mateuspimartins@hotmail.com");
