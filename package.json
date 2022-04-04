@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fontsource/lexend-deca": "^4.5.7",
     "axios": "^0.26.1",
     "dayjs": "^1.11.0",
     "react": "^17.0.2",

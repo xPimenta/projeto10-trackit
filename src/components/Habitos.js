@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect , useContext} from "react";
 import axios from "axios";
+import { ThreeDots } from 'react-loader-spinner';
 
 import Header from "./Headers and Footers/Header";
 import Footer from "./Headers and Footers/Footer";
@@ -9,19 +10,21 @@ import UserContext from "./contexts/UserContext";
 
 export default function Habitos() {
   const {token} = useContext(UserContext);
-  console.log(token);
 
   const [habitos, setHabitos] = useState([]);
   const [habit, setHabit] = useState("");
   const [habitDays, setHabitDays] = useState([]);
-
+  const [statusButton2, setStatusButton2] = useState(false);
   const [createOpen, setCreateOpen] = useState(false);
 
   function createHabit(e) {
     e.preventDefault();
     console.log(habit, habitDays);
-    if (habitDays.length === 0) {
+    if (habit === "") alert("Preencha o nome do seu hábito");
+    else if (habitDays.length == 0) alert("Preencha os dias da semana");
+    else if (habitDays.length === 0) {
     } else {
+      setStatusButton2(true);
       axios
         .post(
           "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
@@ -36,12 +39,14 @@ export default function Habitos() {
           }
         )
         .then(({ data }) => {
+          setStatusButton2(false);
           console.log(data);
           setHabit("");
           setHabitDays([]);
           setHabitos([...habitos, data]);
         })
         .catch(({ response }) => {
+          setStatusButton2(false);
           console.log(response);
         });
     }
@@ -59,13 +64,12 @@ export default function Habitos() {
         }
       )
       .then(({ data }) => {
-        console.log(data);
         setHabitos(data);
       })
       .catch(({ response }) => {
         console.log(response);
       });
-  }, []);
+  }, [token]);
 
   return (
     <Main>
@@ -113,15 +117,10 @@ export default function Habitos() {
                       );
                     }
                   }
-                  // deleteHabit={deleteHabit}
                   key={habit.id}
                 />
               ))}
             </div>
-
-            {/* <div className='my-habits'>
-                <Habito />
-              </div> */}
           </div>
 
           {habitos.length === 0 ? (
@@ -170,7 +169,7 @@ export default function Habitos() {
         <div className="habito-days">{ButtonsDaysOfWeek}</div>
         <div className="cancel-save">
           <button type="submit" className="save">
-            Salvar
+          {statusButton2 === true ? <ThreeDots color="white"/> : "Salvar"}
           </button>
           <button onClick={() => setCreateOpen(!createOpen)} className="cancel">
             Cancelar
@@ -241,7 +240,7 @@ const CreateHab = styled.div`
     flex-direction: row-reverse;
     margin-top: 20px;
 
-    button {
+    .save {
       // cancel and save buttons
       min-width: 84px;
       height: 35px;
@@ -252,9 +251,32 @@ const CreateHab = styled.div`
       font-size: 15.976px;
       line-height: 20px;
       text-align: center;
-      color: #ffffff;
-      background-color: black;
+      color: white;
+      background: #52B6FF;
+      border:none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
     }
+    .cancel {
+      // cancel and save buttons
+      min-width: 84px;
+      height: 35px;
+      border-radius: 4.63636px;
+      font-family: "Lexend Deca";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 15.976px;
+      line-height: 20px;
+      text-align: center;
+      color: #52B6FF;
+      background: none;
+      border:none;
+
+    }
+
+    
   }
 `;
 

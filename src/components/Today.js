@@ -5,12 +5,6 @@ import dayjs from "dayjs";
 import styled from "styled-components";
 
 
-import styledComponents from "styled-components";
-import { Link } from "react-router-dom";
-import { CircularProgressbar , buildStyles} from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
-
-
 import Header from "./Headers and Footers/Header";
 import Footer from "./Headers and Footers/Footer";
 import UserContext from "./contexts/UserContext";
@@ -37,7 +31,7 @@ export default function Today() {
   const [todayHabits, setTodayHabits] = useState([]);
   const [checkHabits, setCheckHabits] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-
+  
   useEffect(() => {
     axios
       .get(
@@ -53,6 +47,7 @@ export default function Today() {
         let count = 0;
         data.map((habit) => {
           if (habit.done) count++;
+		  return habit;
         });
         setCheckHabits(count);
         setTimeout(() => setIsLoading(false), 500);
@@ -158,71 +153,10 @@ export default function Today() {
             : ""}
         </div>
       </Todays>
-	  <Footers>
-        <div className="footer">
-        <Link className="redirectLink" to="/habitos">Hábitos</Link>
-        <Link className="redirectLink" to="/historico">Histórico</Link>
-        </div>
-
-        <Link to="/hoje" className="hojePercent">
-        <div className="percent">
-        <CircularProgressbar styles={buildStyles({ textColor: '#fff',})} value={Math.floor((checkHabits / todayHabits.length) * 100)} text="Hoje" />;
-        </div>
-        </Link>
-      </Footers>
+      <Footer />
     </>
   );
 }
-
-
-
-const Footers = styledComponents.div`
-height: 101px;   
-  position: absolute;
-  bottom: 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-
-  .footer{
-    height: 70px;
-    width: 100%;
-  display: flex;
-  position: absolute;
-  bottom: 0;
-  background: #FFF;
-    display: flex;
-    
-    .redirectLink{
-      text-decoration: none;
-      margin: 20px;
-      font-family: 'Lexend Deca';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 21px;
-  line-height: 22px;
-  text-align: center;
-  color: #52B6FF;
-
-  &:last-child{
-    position: absolute;
-    right: 0px;
-    }
-  }
-  }
-  .percent{
-    textcolor: white;
-    padding: 6px;
-    background: #52B6FF;
-    position: relative;
-    width: 91px;
-    height: 91px;
-    border-radius: 50%;
-  }
-
-`;
 
 const Todays = styled.main`
   width: 100%;

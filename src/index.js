@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom";
+import "@fontsource/lexend-deca";
 
 import "./styles/reset.css";
-import "./styles/style.css";
 
 import App from "./components/App";
 

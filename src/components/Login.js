@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import axios from 'axios';
 import logo from "./../assets/logo.png"
+import { ThreeDots } from 'react-loader-spinner';
 
 import UserContext from './contexts/UserContext';
 import UserImg from './contexts/UserImg';
@@ -12,10 +13,15 @@ export default function Login() {
   const token = useContext(UserContext);
   const img = useContext(UserImg);
 
+  const [statusButton, setStatusButton] = useState(false);
+
+
+
   let navigate = useNavigate();
 
   function login() {
     const URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login";
+    setStatusButton(true);
     const promise = axios.post(URL, {
       email,
       password: senha
@@ -25,9 +31,11 @@ export default function Login() {
     console.log(data);
     token.setToken(data.token);
     img.setImg(data.image);
-    navigate("habitos");
+    navigate("hoje");
+    setStatusButton(false);
   });
   promise.catch(()=>{alert("Usuário ou senha incorretos")});
+  setStatusButton(false);
   }
 
   const [email, setEmail] = useState("mateuspimartins@hotmail.com");
@@ -38,7 +46,7 @@ export default function Login() {
       <img src={logo} alt="logo" />
       <input type="text" placeholder='email' value={email} onChange={(e) => setEmail(e.target.value)}></input>
       <input type="text" placeholder='senha' value={senha} onChange={(e) => setSenha(e.target.value)}></input>
-      <button onClick={login} >Entrar</button>
+      <button onClick={login}>{statusButton === true ? <ThreeDots color="white"/> : "Entrar"}</button>
       <Link className="redirectLink" to="/cadastro">Não tem uma conta? Cadastre-se</Link>
     </Container>
   );
