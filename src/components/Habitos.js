@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import { useState , useEffect} from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 import Header from "./Headers and Footers/Header";
 import Footer from "./Headers and Footers/Footer";
+import MyHabit from "./MyHabit";
 
 // import Habito from './Habito';
 
@@ -49,23 +50,23 @@ export default function Habitos({ token }) {
   }
 
   useEffect(() => {
-		axios
-			.get(
-				"https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
-				{
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				}
-			)
-			.then(({ data }) => {
-				console.log(data)
-				setHabitos(data)
-			})
-			.catch(({ response }) => {
-				console.log(response)
-			})
-	}, [])
+    axios
+      .get(
+        "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then(({ data }) => {
+        console.log(data);
+        setHabitos(data);
+      })
+      .catch(({ response }) => {
+        console.log(response);
+      });
+  }, []);
 
   return (
     <>
@@ -90,6 +91,14 @@ export default function Habitos({ token }) {
                 />
                 <CreateHabit />
               </CreateHabitForm>
+
+              {habitos.map((habit) => (
+                <MyHabit
+                  habitData={habit}
+                  // deleteHabit={deleteHabit}
+                  key={habit.id}
+                />
+              ))}
             </div>
 
             {/* <div className='my-habits'>
@@ -146,30 +155,31 @@ export default function Habitos({ token }) {
   }
 }
 
-
-
 const CreateHab = styled.div`
   .habito-days {
     display: flex;
     flex-direction: row;
 
     .button-day {
-      background: blue;
+      background: white;
       border: 1px solid #d5d5d5;
       box-sizing: border-box;
       border-radius: 5px;
-      color: grey;
       margin: 2px;
       margin-top: 8px;
       width: 30px;
       height: 30px;
+      font-size: 19.976px;
+		line-height: 25px;
+		color: #dbdbdb;
+    
     }
     .day-selected {
-      background: green;
+      color: #fff;
+			background: #cfcfcf;
       border: 1px solid #d5d5d5;
       box-sizing: border-box;
       border-radius: 5px;
-      color: grey;
       margin: 2px;
       margin-top: 8px;
       width: 30px;
@@ -228,7 +238,7 @@ const CreateHabitForm = styled.form`
     font-size: 19.976px;
     line-height: 25px;
 
-    color: #dbdbdb;
+    color: #666666;
   }
 `;
 
