@@ -38,8 +38,8 @@ export default function Login() {
   setStatusButton(false);
   }
 
-  const [email, setEmail] = useState("mateuspimartins@hotmail.com");
-  const [senha, setSenha] = useState("123456");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
 
   return (
     <Container>
